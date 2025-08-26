@@ -4,7 +4,7 @@
     <group>
         <item
                 android:id="@+id/settings"
-                android:title="Settings..."
+                android:title="设 置"
                 app:showAsAction="withText"/>
     </group>
 </menu>

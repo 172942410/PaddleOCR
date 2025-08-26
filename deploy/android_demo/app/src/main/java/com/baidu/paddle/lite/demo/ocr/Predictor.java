@@ -36,6 +36,7 @@ public class Predictor {
     protected Bitmap inputImage = null;
     protected Bitmap outputImage = null;
     protected volatile String outputResult = "";
+    protected volatile String outputText = "";
     protected float postprocessTime = 0;
 
 
@@ -194,6 +195,9 @@ public class Predictor {
     public String outputResult() {
         return outputResult;
     }
+    public String outputText() {
+        return outputText;
+    }
 
     public float postprocessTime() {
         return postprocessTime;
@@ -225,6 +229,7 @@ public class Predictor {
     }
 
     private void drawResults(ArrayList<OcrResultModel> results) {
+        outputText = "";
         StringBuffer outputResultSb = new StringBuffer("");
         for (int i = 0; i < results.size(); i++) {
             OcrResultModel result = results.get(i);
@@ -238,6 +243,7 @@ public class Predictor {
             if(result.getLabel().length() > 0){
                 sb.append("\n Rec: ").append(result.getLabel());
                 sb.append(",").append(result.getConfidence());
+                outputText += "识别结果：" + result.getLabel() + "，可信度：" + result.getConfidence() + "\n";
             }
             if(result.getClsIdx()!=-1){
                 sb.append(" Cls: ").append(result.getClsLabel());

@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         if (pbLoadModel != null && pbLoadModel.isShowing()) {
                             pbLoadModel.dismiss();
                         }
-                        Toast.makeText(MainActivity.this, "Load model failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "加载失败!", Toast.LENGTH_SHORT).show();
                         onLoadModelFailed();
                         break;
                     case RESPONSE_RUN_MODEL_SUCCESSED:
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         if (pbRunModel != null && pbRunModel.isShowing()) {
                             pbRunModel.dismiss();
                         }
-                        Toast.makeText(MainActivity.this, "Run model failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "运行模型失败!", Toast.LENGTH_SHORT).show();
                         onRunModelFailed();
                         break;
                     default:
@@ -218,20 +218,20 @@ public class MainActivity extends AppCompatActivity {
             cpuThreadNum = cpu_thread_num;
             cpuPowerMode = cpu_power_mode;
             // Update UI
-            tvInputSetting.setText("Model: " + modelPath.substring(modelPath.lastIndexOf("/") + 1) + "\nOPENCL: " + cbOpencl.isChecked() + "\nCPU Thread Num: " + cpuThreadNum + "\nCPU Power Mode: " + cpuPowerMode);
-            tvInputSetting.scrollTo(0, 0);
+//            tvInputSetting.setText("模型: " + modelPath.substring(modelPath.lastIndexOf("/") + 1) + "\nOPENCL: " + cbOpencl.isChecked() + "\n处理器线程数: " + cpuThreadNum + "\n处理器功耗模式: " + cpuPowerMode);
+//            tvInputSetting.scrollTo(0, 0);
             // Reload model if configure has been changed
             loadModel();
         }
     }
 
     public void loadModel() {
-        pbLoadModel = ProgressDialog.show(this, "", "loading model...", false, false);
+        pbLoadModel = ProgressDialog.show(this, "", "加载中...", false, false);
         sender.sendEmptyMessage(REQUEST_LOAD_MODEL);
     }
 
     public void runModel() {
-        pbRunModel = ProgressDialog.show(this, "", "running model...", false, false);
+        pbRunModel = ProgressDialog.show(this, "", "运行中...", false, false);
         sender.sendEmptyMessage(REQUEST_RUN_MODEL);
     }
 
@@ -254,30 +254,33 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLoadModelSuccessed() {
         // Load test image from path and run model
-        tvInputSetting.setText("Model: " + modelPath.substring(modelPath.lastIndexOf("/") + 1) + "\nOPENCL: " + cbOpencl.isChecked() + "\nCPU Thread Num: " + cpuThreadNum + "\nCPU Power Mode: " + cpuPowerMode);
-        tvInputSetting.scrollTo(0, 0);
-        tvStatus.setText("STATUS: load model succeeded");
+//        tvInputSetting.setText("模型: " + modelPath.substring(modelPath.lastIndexOf("/") + 1) + "\nOPENCL: " + cbOpencl.isChecked() + "\n处理器线程数: " + cpuThreadNum + "\n处理器功耗模式: " + cpuPowerMode);
+//        tvInputSetting.scrollTo(0, 0);
+        tvStatus.setText("状态: 加载模型成功");
 
     }
 
     public void onLoadModelFailed() {
-        tvStatus.setText("STATUS: load model failed");
+        tvStatus.setText("状态: 加载模型失败");
     }
 
     public void onRunModelSuccessed() {
-        tvStatus.setText("STATUS: run model succeeded");
+        tvStatus.setText("状态: 执行成功完成");
         // Obtain results and update UI
-        tvInferenceTime.setText("Inference time: " + predictor.inferenceTime() + " ms");
+        tvInferenceTime.setText("执行耗时: " + predictor.inferenceTime() + " ms");
         Bitmap outputImage = predictor.outputImage();
         if (outputImage != null) {
             ivInputImage.setImageBitmap(outputImage);
         }
-        tvOutputResult.setText(predictor.outputResult());
+//        String result = predictor.outputResult();
+        String result = predictor.outputText();
+//        Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+        tvOutputResult.setText(result);
         tvOutputResult.scrollTo(0, 0);
     }
 
     public void onRunModelFailed() {
-        tvStatus.setText("STATUS: run model failed");
+        tvStatus.setText("状态: 运行失败");
     }
 
     public void set_img() {
@@ -289,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
             cur_predict_image = bmp;
             ivInputImage.setImageBitmap(bmp);
         } catch (IOException e) {
-            Toast.makeText(MainActivity.this, "Load image failed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "加载图片失败!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -400,6 +403,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            tvOutputResult.setText("");
             switch (requestCode) {
                 case OPEN_GALLERY_REQUEST_CODE:
                     if (data == null) {
@@ -452,18 +456,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cb_opencl_click(View view) {
-        tvStatus.setText("STATUS: load model ......");
+        tvStatus.setText("状态: 加载模型中...");
         loadModel();
     }
 
     public void btn_run_model_click(View view) {
         Bitmap image = ((BitmapDrawable) ivInputImage.getDrawable()).getBitmap();
         if (image == null) {
-            tvStatus.setText("STATUS: image is not exists");
+            tvStatus.setText("状态: 图片不存在");
         } else if (!predictor.isLoaded()) {
-            tvStatus.setText("STATUS: model is not loaded");
+            tvStatus.setText("状态: 模型没有加载或事变");
         } else {
-            tvStatus.setText("STATUS: run model ...... ");
+            tvStatus.setText("状态: 运行中... ");
             predictor.setInputImage(image);
             runModel();
         }

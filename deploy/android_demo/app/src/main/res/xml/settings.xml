@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory android:title="Model Settings">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="模式设置">
         <ListPreference
-                android:defaultValue="@string/MODEL_PATH_DEFAULT"
-                android:key="@string/CHOOSE_PRE_INSTALLED_MODEL_KEY"
-                android:negativeButtonText="@null"
-                android:positiveButtonText="@null"
-                android:title="Choose pre-installed models" />
+            android:defaultValue="@string/MODEL_PATH_DEFAULT"
+            android:key="@string/CHOOSE_PRE_INSTALLED_MODEL_KEY"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="选择预装模式" />
         <CheckBoxPreference
-                android:defaultValue="false"
-                android:key="@string/ENABLE_CUSTOM_SETTINGS_KEY"
-                android:summaryOn="Enable"
-                android:summaryOff="Disable"
-                android:title="Enable custom settings"/>
+            android:defaultValue="false"
+            android:key="@string/ENABLE_CUSTOM_SETTINGS_KEY"
+            android:summaryOff="关闭"
+            android:summaryOn="开启"
+            android:title="启用自定义设置" />
         <EditTextPreference
-                android:key="@string/MODEL_PATH_KEY"
-                android:defaultValue="@string/MODEL_PATH_DEFAULT"
-                android:title="Model Path" />
+            android:defaultValue="@string/MODEL_PATH_DEFAULT"
+            android:key="@string/MODEL_PATH_KEY"
+            android:title="模式路径" />
         <EditTextPreference
-                android:key="@string/LABEL_PATH_KEY"
-                android:defaultValue="@string/LABEL_PATH_DEFAULT"
-                android:title="Label Path" />
+            android:defaultValue="@string/LABEL_PATH_DEFAULT"
+            android:key="@string/LABEL_PATH_KEY"
+            android:title="标签路径" />
         <ListPreference
-                android:key="@string/IMAGE_PATH_KEY"
-                android:defaultValue="@string/IMAGE_PATH_DEFAULT"
-                android:entries="@array/image_name_entries"
-                android:entryValues="@array/image_name_values"
-                android:title="Image Path" />
+            android:defaultValue="@string/IMAGE_PATH_DEFAULT"
+            android:entries="@array/image_name_entries"
+            android:entryValues="@array/image_name_values"
+            android:key="@string/IMAGE_PATH_KEY"
+            android:title="图片路径" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="CPU Settings">
+    <PreferenceCategory android:title="处理器设置">
         <ListPreference
-                android:defaultValue="@string/CPU_THREAD_NUM_DEFAULT"
-                android:key="@string/CPU_THREAD_NUM_KEY"
-                android:negativeButtonText="@null"
-                android:positiveButtonText="@null"
-                android:title="CPU Thread Num"
-                android:entries="@array/cpu_thread_num_entries"
-                android:entryValues="@array/cpu_thread_num_values"/>
+            android:defaultValue="@string/CPU_THREAD_NUM_DEFAULT"
+            android:entries="@array/cpu_thread_num_entries"
+            android:entryValues="@array/cpu_thread_num_values"
+            android:key="@string/CPU_THREAD_NUM_KEY"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="处理器线程数量" />
         <ListPreference
-                android:defaultValue="@string/CPU_POWER_MODE_DEFAULT"
-                android:key="@string/CPU_POWER_MODE_KEY"
-                android:negativeButtonText="@null"
-                android:positiveButtonText="@null"
-                android:title="CPU Power Mode"
-                android:entries="@array/cpu_power_mode_entries"
-                android:entryValues="@array/cpu_power_mode_values"/>
+            android:defaultValue="@string/CPU_POWER_MODE_DEFAULT"
+            android:entries="@array/cpu_power_mode_entries"
+            android:entryValues="@array/cpu_power_mode_values"
+            android:key="@string/CPU_POWER_MODE_KEY"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="处理器功耗模式" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Input Settings">
+    <PreferenceCategory android:title="输入设置">
         <EditTextPreference
-                android:key="@string/DET_LONG_SIZE_KEY"
-                android:defaultValue="@string/DET_LONG_SIZE_DEFAULT"
-                android:title="det long size" />
+            android:defaultValue="@string/DET_LONG_SIZE_DEFAULT"
+            android:key="@string/DET_LONG_SIZE_KEY"
+            android:title="识别长度" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Output Settings">
+    <PreferenceCategory android:title="输出设置">
         <EditTextPreference
-                android:key="@string/SCORE_THRESHOLD_KEY"
-                android:defaultValue="@string/SCORE_THRESHOLD_DEFAULT"
-                android:title="Score Threshold" />
+            android:defaultValue="@string/SCORE_THRESHOLD_DEFAULT"
+            android:key="@string/SCORE_THRESHOLD_KEY"
+            android:title="分数门槛" />
     </PreferenceCategory>
 </PreferenceScreen>
